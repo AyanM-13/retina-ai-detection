@@ -1,0 +1,14 @@
+{
+  "name": "retinal-ai-platform",
+  "version": "1.0.0",
+  "scripts": {
+    "mongo": "mongod",
+    "ai": "cd ai-service && tfenv\\Scripts\\activate && uvicorn app:app --reload --port 8000",
+    "backend": "cd backend && node server.js",
+    "frontend": "cd frontend && npm start",
+    "start": "concurrently \"npm run mongo\" \"npm run ai\" \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
