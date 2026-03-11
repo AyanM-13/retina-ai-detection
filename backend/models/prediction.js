@@ -13,13 +13,19 @@ const schema = new mongoose.Schema(
       diabetesHistory: String,
       hypertension: String,
     },
+    // CHANGED: From Boolean to String to store severity levels
     disease: {
-      type: Boolean,
+      type: String, 
       required: true,
     },
+    // CHANGED: From Number to String to handle the percentage text
     confidence: {
-      type: Number,
+      type: String, 
       required: true,
+    },
+    // ADDED: Useful for sorting or logic in the future
+    classId: {
+      type: Number,
     },
     image: String,
     heatmap: String,
