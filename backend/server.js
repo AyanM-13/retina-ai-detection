@@ -168,13 +168,27 @@ app.post("/predict", auth, predictLimiter, upload.single("image"), async (req, r
       heatmap: data.heatmap,
     });
 
+    // FETCH HEATMAP BUFFER IMMEDIATELY FOR PDF GENERATION
+    let heatmapBuffer = null;
+    if (data.heatmap) {
+      try {
+        const url = `${config.aiServiceUrl}${data.heatmap}`;
+        const hmRes = await axios.get(url, { responseType: 'arraybuffer' });
+        heatmapBuffer = Buffer.from(hmRes.data);
+      } catch (err) {
+        console.error("Could not fetch heatmap for PDF", err.message);
+      }
+    }
+
     // CREATE PDF REPORT
     const pdfPath = path.join(config.uploadsDir, `report_${record._id}.pdf`);
     // Passing updated data object to createReport
     createReport({ 
         disease: data.diagnosis, 
         confidence: data.confidence, 
-        patient 
+        patient,
+        imagePath: filePath,
+        heatmapBuffer: heatmapBuffer
     }, pdfPath);
 
     const relativeImage = path.relative(config.uploadsDir, filePath);

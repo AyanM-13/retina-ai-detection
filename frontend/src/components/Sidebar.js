@@ -56,7 +56,7 @@
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { clearToken } from "../utils/auth";
-import { FaBrain, FaHistory, FaSignOutAlt, FaEye } from "react-icons/fa"; // Added FaEye
+import { FaBrain, FaHistory, FaSignOutAlt, FaEye, FaBalanceScale } from "react-icons/fa"; // Added FaEye and FaBalanceScale
 import { motion } from "framer-motion";
 
 export default function Sidebar() {
@@ -90,6 +90,11 @@ export default function Sidebar() {
         <Link className={active("/history")} to="/history">
           <FaHistory className="icon" />
           History
+        </Link>
+
+        <Link className={active("/compare")} to="/compare">
+          <FaBalanceScale className="icon" />
+          Compare Scans
         </Link>
       </nav>
 
